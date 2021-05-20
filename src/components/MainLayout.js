@@ -90,6 +90,22 @@ const MainLayout = () => {
                             >
                                 <Input autoComplete="on" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
                             </Form.Item>
+
+                            <Form.Item
+                                name='name'
+                                label='Full name'
+                                rules={[
+                                    {
+                                        type:'string',
+                                        message: 'EMAIL IS NOT VALID',
+                                    },
+                                    {
+                                        required: false,
+                                    },
+                                ]}
+                            >
+                                <Input autoComplete="on" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
+                            </Form.Item>
                             <div style={{display:'flex', flexDirection:'row' , alignItems:'center', alignContent:'center'}}>
                                 <Button style={{}} type="primary" htmlType="submit">
                                     salam
