@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Col, Row, Form, Button, Input, Steps} from 'antd'
 import {RightCircleFilled } from '@ant-design/icons'
 import logo from '../logo.svg'
+import { SwitchTransition, CSSTransition } from "react-transition-group";
 
 const { Step } = Steps;
 
@@ -22,15 +23,117 @@ const steps = [
 
 const MainLayout = () => {
 
-    const [current, setCurrent] = React.useState(0);
+    const [current, setCurrent] = useState(0);
 
     const next = () => {
-        setCurrent(current + 1);
+        if (current < 2){
+            setCurrent(current + 1);
+        }else{
+            setCurrent(2);
+        }
     };
 
     const prev = () => {
-        setCurrent(current - 1);
+        if (current > 0){
+            setCurrent(current - 1);
+        }else{
+            setCurrent(0);
+        }
     };
+
+
+    const formSteps = [
+        <>
+            <Form.Item
+            name='email'
+            rules={[
+                {
+                    type:'email',
+                    message: 'EMAIL IS NOT VALID',
+                },
+                {
+                    required: true,
+                    message: 'EMAIL IS REQUIRED',
+                },
+            ]}
+        >
+            <Input placeholder="email@example.com" autoComplete="on" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
+        </Form.Item>
+            <Form.Item
+                name='name'
+                rules={[
+                    {
+                        type:'string',
+                        message: 'EMAIL IS NOT VALID',
+                    },
+                    {
+                        required: false,
+                    },
+                ]}
+            >
+                <Input placeholder="John Doe" autoComplete="on" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
+            </Form.Item>
+        </>,
+        <>
+            <Form.Item
+                name='password'
+                rules={[
+                    {
+                        type:'password',
+                        message: 'Password is not valid',
+                    },
+                    {
+                        required: true,
+                        message: 'Password is required',
+                    },
+                ]}
+            >
+                <Input placeholder="your password" type='password' autoComplete="off" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
+            </Form.Item>
+            <Form.Item
+                name='name'
+                rules={[
+                    {
+                        type:'string',
+                        message: 'EMAIL IS NOT VALID',
+                    },
+                    {
+                        required: false,
+                    },
+                ]}
+            >
+                <Input placeholder="repeat password" autoComplete="of" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
+            </Form.Item>
+        </>,
+        <>
+            <Form.Item
+                name='security-name'
+                rules={[
+                    {
+                        type:'string',
+                    },
+                    {
+                        required: false,
+                    },
+                ]}
+            >
+                <Input placeholder="Security one" autoComplete="off" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
+            </Form.Item>
+            <Form.Item
+                name='security-owner'
+                rules={[
+                    {
+                        type:'string',
+                    },
+                    {
+                        required: false,
+                    },
+                ]}
+            >
+                <Input placeholder="Lisa Doe" autoComplete="off" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
+            </Form.Item>
+        </>,
+    ]
 
 
     return (
@@ -66,55 +169,37 @@ const MainLayout = () => {
                             ))}
                         </Steps>
 
-                        <Form
-                            layout="horizontal"
-                            // form={form}
-                            name="login"
-                            onFinish={next}
-                            scrollToFirstError
-                            requiredMark={false}
-                        >
-                            <Form.Item
-                                name='email'
-                                label='EMAIL'
-                                rules={[
-                                    {
-                                        type:'email',
-                                        message: 'EMAIL IS NOT VALID',
-                                    },
-                                    {
-                                        required: true,
-                                        message: 'EMAIL IS REQUIRED',
-                                    },
-                                ]}
+                        <SwitchTransition>
+                            <CSSTransition
+                                key={current}
+                                addEndListener={(node, done) => {
+                                    node.addEventListener("transitionend", done, false);
+                                }}
+                                classNames="fade"
                             >
-                                <Input autoComplete="on" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
-                            </Form.Item>
+                                    <Form
+                                        layout="horizontal"
+                                        // form={form}
+                                        name="login"
+                                        onFinish={next}
+                                        scrollToFirstError
+                                        style={{width:'80%', margin:'20px auto 10px'}}
+                                    >
+                                        {formSteps[current]}
+                                    </Form>
+                            </CSSTransition>
+                        </SwitchTransition>
 
-                            <Form.Item
-                                name='name'
-                                label='Full name'
-                                rules={[
-                                    {
-                                        type:'string',
-                                        message: 'EMAIL IS NOT VALID',
-                                    },
-                                    {
-                                        required: false,
-                                    },
-                                ]}
-                            >
-                                <Input autoComplete="on" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
-                            </Form.Item>
-                            <div style={{display:'flex', flexDirection:'row' , alignItems:'center', alignContent:'center'}}>
-                                <Button style={{}} type="primary" htmlType="submit">
-                                    salam
-                                </Button>
-                                <Button onClick={() => prev()} style={{}} type="secondary" >
-                                    salam
-                                </Button>
-                            </div>
-                        </Form>
+
+                        <div style={{display:'flex', flexDirection:'row' , alignItems:'center', alignContent:'center'}}>
+                            <Button onClick={() => next()} type="primary" htmlType="primary">
+                                salam
+                            </Button>
+                            <Button onClick={() => prev()} type="secondary" >
+                                salam
+                            </Button>
+                        </div>
+
                     </Col>
                     </Row>
         </div>
