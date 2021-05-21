@@ -60,7 +60,7 @@ const MainLayout = () => {
                 },
             ]}
         >
-            <Input style={{width:'80%', marginLeft:'auto', display:'block'}}  placeholder="email@example.com" autoComplete="on" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
+            <Input style={{width:'17rem', marginLeft:'auto', display:'block'}}  placeholder="email@example.com" autoComplete="on" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
         </Form.Item>
             <Form.Item
                 label='Name'
@@ -76,11 +76,13 @@ const MainLayout = () => {
                     },
                 ]}
             >
-                <Input style={{width:'81%', marginLeft:'auto', display:'block'}}   placeholder="John Doe" autoComplete="on" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
+                <Input style={{width:'17rem', marginLeft:'auto', display:'block'}}  placeholder="John Doe" autoComplete="on" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
             </Form.Item>
         </>,
         <>
             <Form.Item
+                label='password'
+                colon={false}
                 name='password'
                 rules={[
                     {
@@ -93,9 +95,11 @@ const MainLayout = () => {
                     },
                 ]}
             >
-                <Input placeholder="your password" type='password' autoComplete="off" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
+                <Input style={{width:'17rem', marginLeft:'auto', display:'block'}} placeholder="your password" type='password' autoComplete="off" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
             </Form.Item>
             <Form.Item
+                label='confirm password'
+                colon={false}
                 name='name'
                 rules={[
                     {
@@ -103,15 +107,17 @@ const MainLayout = () => {
                         message: 'EMAIL IS NOT VALID',
                     },
                     {
-                        required: false,
+                        required: true,
                     },
                 ]}
             >
-                <Input placeholder="repeat password" autoComplete="of" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
+                <Input style={{width:'17rem', marginLeft:'auto', display:'block'}} placeholder="repeat password" autoComplete="of" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
             </Form.Item>
         </>,
         <>
             <Form.Item
+                label='device name'
+                colon={false}
                 name='security-name'
                 rules={[
                     {
@@ -122,9 +128,11 @@ const MainLayout = () => {
                     },
                 ]}
             >
-                <Input placeholder="Security one" autoComplete="off" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
+                <Input style={{width:'17rem', marginLeft:'auto', display:'block'}} placeholder="Security one" autoComplete="off" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
             </Form.Item>
             <Form.Item
+                label='owner'
+                colon={false}
                 name='security-owner'
                 rules={[
                     {
@@ -135,7 +143,7 @@ const MainLayout = () => {
                     },
                 ]}
             >
-                <Input placeholder="Lisa Doe" autoComplete="off" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
+                <Input style={{width:'17rem', marginLeft:'auto', display:'block'}} placeholder="Lisa Doe" autoComplete="off" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
             </Form.Item>
         </>,
     ]
