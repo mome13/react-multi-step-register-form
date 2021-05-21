@@ -45,8 +45,11 @@ const MainLayout = () => {
     const formSteps = [
         <>
             <Form.Item
+                label='Email'
+                colon={false}
             name='email'
-            rules={[
+                style={{width:'100%'}}
+                rules={[
                 {
                     type:'email',
                     message: 'EMAIL IS NOT VALID',
@@ -57,21 +60,23 @@ const MainLayout = () => {
                 },
             ]}
         >
-            <Input placeholder="email@example.com" autoComplete="on" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
+            <Input style={{width:'80%', marginLeft:'auto', display:'block'}}  placeholder="email@example.com" autoComplete="on" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
         </Form.Item>
             <Form.Item
+                label='Name'
                 name='name'
+                colon={false}
                 rules={[
                     {
                         type:'string',
-                        message: 'EMAIL IS NOT VALID',
+                        message: 'Name IS NOT VALID',
                     },
                     {
-                        required: false,
+                        required: true,
                     },
                 ]}
             >
-                <Input placeholder="John Doe" autoComplete="on" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
+                <Input style={{width:'81%', marginLeft:'auto', display:'block'}}   placeholder="John Doe" autoComplete="on" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
             </Form.Item>
         </>,
         <>
@@ -183,7 +188,7 @@ const MainLayout = () => {
                                         name="login"
                                         onFinish={next}
                                         scrollToFirstError
-                                        style={{width:'80%', margin:'20px auto 10px'}}
+                                        style={{width:'70%', margin:'100px auto 10px'}}
                                     >
                                         {formSteps[current]}
                                     </Form>
@@ -191,12 +196,12 @@ const MainLayout = () => {
                         </SwitchTransition>
 
 
-                        <div style={{display:'flex', flexDirection:'row' , alignItems:'center', alignContent:'center'}}>
-                            <Button onClick={() => next()} type="primary" htmlType="primary">
-                                salam
+                        <div style={{display:'flex', position:'relative' ,alignItems:'end', justifyContent:'space-between', width:'70%', margin:'30px auto 10px' }}>
+                            <Button onClick={() => prev()} type="primary" htmlType="primary" style={current === 0? {visibility:'hidden'} : {} }>
+                                back
                             </Button>
-                            <Button onClick={() => prev()} type="secondary" >
-                                salam
+                            <Button onClick={() => next()} type="primary" >
+                                {current === 2? 'finish' : 'next' }
                             </Button>
                         </div>
 
