@@ -54,5 +54,10 @@ body {
   display: block !important;
 }
 
+.ant-col ant-form-item-label {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 
 
