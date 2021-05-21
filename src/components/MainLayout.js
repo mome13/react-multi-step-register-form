@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {Col, Row, Form, Button, Input, Steps} from 'antd'
 import {RightCircleFilled } from '@ant-design/icons'
 import logo from '../logo.svg'
@@ -24,24 +24,23 @@ const steps = [
 const MainLayout = () => {
 
     const [current, setCurrent] = useState(0);
-
+    const isDirForward= useRef('unfade');
     const next = () => {
+        isDirForward.current = 'unfade'
         if (current < 2){
             setCurrent(current + 1);
         }else{
             setCurrent(2);
         }
     };
-
     const prev = () => {
+        isDirForward.current = 'fade';
         if (current > 0){
             setCurrent(current - 1);
         }else{
             setCurrent(0);
         }
     };
-
-
     const formSteps = [
         <>
             <Form.Item
@@ -146,7 +145,7 @@ const MainLayout = () => {
                 <Input style={{width:'17rem', marginLeft:'auto', display:'block'}} placeholder="Lisa Doe" autoComplete="off" autoCorrect="false" autoCapitalize="off" spellCheck="false" />
             </Form.Item>
         </>,
-    ]
+    ];
 
 
     return (
@@ -186,9 +185,11 @@ const MainLayout = () => {
                             <CSSTransition
                                 key={current}
                                 addEndListener={(node, done) => {
-                                    node.addEventListener("transitionend", done, false);
+                                    node.addEventListener("transitionend", done, true);
                                 }}
-                                classNames="fade"
+
+                                classNames={isDirForward.current}
+
                             >
                                     <Form
                                         layout="horizontal"
