@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Col, Row, Form, Button, Input, Steps} from 'antd'
 import {RightCircleFilled } from '@ant-design/icons'
 import logo from '../logo.svg'
@@ -24,9 +24,11 @@ const steps = [
 const MainLayout = () => {
 
     const [current, setCurrent] = useState(0);
-    const isDirForward= useRef('unfade');
+    const [syncState, setSyncState] = useState(0);
+    const [animClass, setAnimClass] = useState('unfade');
+
     const next = () => {
-        isDirForward.current = 'unfade'
+        setAnimClass('unfade');
         if (current < 2){
             setCurrent(current + 1);
         }else{
@@ -34,13 +36,18 @@ const MainLayout = () => {
         }
     };
     const prev = () => {
-        isDirForward.current = 'fade';
+        setAnimClass('fade');
         if (current > 0){
             setCurrent(current - 1);
         }else{
             setCurrent(0);
         }
     };
+
+    useEffect(()=> {
+        setSyncState(current);
+    },[current])
+
     const formSteps = [
         <>
             <Form.Item
@@ -175,7 +182,7 @@ const MainLayout = () => {
                         borderTopRightRadius:'30px',
                         borderBottomRightRadius:'30px',
                         padding:'20px'}}>
-                        <Steps style={{margin: '1rem auto', width:'80%'}} progressDot  current={current}>
+                        <Steps style={{margin: '1rem auto', width:'80%'}} progressDot  current={syncState}>
                             {steps.map(item => (
                                 <Step key={item.title} title={item.title} />
                             ))}
@@ -183,12 +190,12 @@ const MainLayout = () => {
 
                         <SwitchTransition>
                             <CSSTransition
-                                key={current}
+                                key={syncState}
                                 addEndListener={(node, done) => {
                                     node.addEventListener("transitionend", done, true);
                                 }}
 
-                                classNames={isDirForward.current}
+                                classNames={animClass}
 
                             >
                                     <Form
@@ -199,18 +206,18 @@ const MainLayout = () => {
                                         scrollToFirstError
                                         style={{width:'70%', margin:'100px auto 10px'}}
                                     >
-                                        {formSteps[current]}
+                                        {formSteps[syncState]}
                                     </Form>
                             </CSSTransition>
                         </SwitchTransition>
 
 
                         <div style={{display:'flex', position:'relative' ,alignItems:'end', justifyContent:'space-between', width:'70%', margin:'30px auto 10px' }}>
-                            <Button onClick={() => prev()} type="primary" htmlType="primary" style={current === 0? {visibility:'hidden'} : {} }>
+                            <Button onClick={() => prev()} type="primary" htmlType="primary" style={syncState === 0? {visibility:'hidden'} : {} }>
                                 back
                             </Button>
                             <Button onClick={() => next()} type="primary" >
-                                {current === 2? 'finish' : 'next' }
+                                {syncState === 2? 'finish' : 'next' }
                             </Button>
                         </div>
 
